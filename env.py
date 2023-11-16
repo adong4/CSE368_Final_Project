@@ -1,7 +1,7 @@
 import pandas as pd
 import networkx as nx
 
-# Load the latest dataset
+# Load dataset
 file = './data.xlsx'
 data = pd.read_excel(file)
 
