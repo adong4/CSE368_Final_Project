@@ -27,27 +27,30 @@ def visual():
 
     # Plotting
     plt.scatter(long, lat)
-
     # fig, mapping = plt.subplots()
     # mapping.scatter(long, lat)
     for i, (c, st) in enumerate(zip(city, state)):
         txt = c + ', ' + st
         plt.annotate(txt, (long[i], lat[i]), size=10)
+
+    # New data load
     citystate = [rtn for rtn in zip(city, state)]
     longlat = [rtn for rtn in zip(long, lat)]
-    lookuptable = [rtn for rtn in zip(citystate, longlat)]
+    lookuptable = dict([rtn for rtn in zip(citystate, longlat)])
     citiescon = list(data['connected cities'])
     statecon = list(data['connected cities states'])
-    for i, lat1, long1 in enumerate(longlat):
-        connected_cities = citiescon[i].split(',')
-        connected_states = statecon[i].split(',')
+    for i, (long1, lat1) in enumerate(longlat):
+        connected_cities = citiescon[i].split(', ')
+        connected_states = statecon[i].split(', ')
         linesToDraw = zip(connected_cities, connected_states)
-        for end in linesToDraw:
-            value = lookuptable[end]
-            long2 = value[0]
-            lat2 = value[1]
+        for value in linesToDraw:
+            longlat2 = lookuptable[value]
+            long2 = longlat2[0]
+            lat2 = longlat2[1]
 
-            #draw line from long1 lat1 to long2 lat2
+            # draw line from long1 lat1 to long2 lat2
+            plt.plot(list([long1, long2]), list([lat1, lat2]), lw=4, color='r')
+
 
 
     plt.show()
