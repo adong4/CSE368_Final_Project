@@ -1,6 +1,5 @@
 import pandas as pd
 import networkx as nx
-import matplotlib as mp
 
 # Load dataset
 file = './data.xlsx'
