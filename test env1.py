@@ -31,7 +31,7 @@ def bfs(start_city, end_city):
             # route.reverse()
             # print(route)
             # print(counter)
-            return route
+            return route, counter
 
         for connected_cities in G.edges(current_city):
             if connected_cities[1] not in visited:
@@ -93,5 +93,5 @@ data = pd.read_excel(file)
 G = nx.Graph()
 generate(data, G)
 bfs('Anniston, AL', 'Auburn-Opelika, AL')
-path = bfs('Santa Clarita, CA', 'Charleston, WV')
-A_star('Santa Clarita, CA', 'Charleston, WV')
+path, count = bfs('Santa Clarita, CA', 'Charleston, WV')
+path, distance, count = A_star('Santa Clarita, CA', 'Charleston, WV')
