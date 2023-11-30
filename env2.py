@@ -21,7 +21,7 @@ class State:
                                        [1, 1, 0, 1, 0, 0, 0, 1, 0, 0],  # 8 | ~  ~  =  ~  =  =  =  ~  =  =
                                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 9 | ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
                                        ])
-                self.goalpos = [0, 6]
+                self.goalpos = [6, 0]
             elif self.boardType == 1:
                 #                       0, 1, 2, 3, 4, 5, 6, 7, 8, 9          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
                 self.board = np.array([[2, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 0 | S  ~  ~  ~  ~  ~  ~  ~  ~  ~
@@ -35,7 +35,7 @@ class State:
                                        [3, 1, 0, 1, 0, 0, 0, 1, 0, 0],  # 8 | @  ~  =  ~  =  =  =  ~  =  =
                                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 9 | ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
                                        ])
-                self.goalpos = [0, 8]
+                self.goalpos = [8, 0]
             elif self.boardType == 2:
                 #                       0, 1, 2, 3, 4, 5, 6, 7, 8, 9          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
                 self.board = np.array([[2, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 0 | S  ~  ~  ~  ~  ~  ~  ~  ~  ~
@@ -49,7 +49,7 @@ class State:
                                        [1, 1, 0, 1, 0, 0, 0, 1, 0, 0],  # 8 | ~  ~  =  ~  =  =  =  ~  =  =
                                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 9 | ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
                                        ])
-                self.goalpos = [5, 3]
+                self.goalpos = [3, 5]
             elif self.boardType == 3:
                 #                       0, 1, 2, 3, 4, 5, 6, 7, 8, 9          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
                 self.board = np.array([[2, 1, 1, 1, 1, 1, 1, 1, 1, 3],  # 0 | S  ~  ~  ~  ~  ~  ~  ~  ~  @
@@ -63,7 +63,7 @@ class State:
                                        [1, 1, 0, 1, 0, 0, 0, 1, 0, 0],  # 8 | ~  ~  =  ~  =  =  =  ~  =  =
                                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 9 | ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
                                        ])
-                self.goalpos = [9, 0]
+                self.goalpos = [0, 9]
             elif self.boardType == 4:
                 #                       0, 1, 2, 3, 4, 5, 6, 7, 8, 9          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
                 self.board = np.array([[2, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 0 | S  ~  ~  ~  ~  ~  ~  ~  ~  ~
@@ -165,8 +165,8 @@ class Node:
 
 # creates and returns a new node which would be child of current node n being passed to the function
 def childNode(n, action, problem, d):
-    return Node(n, action, n.cost + 1, problem.apply(action, State(n.state)), d)
-
+    return Node(n, action, 1, problem.apply(action, State(n.state)), d)
+# made modification to the cost because we are keeping the cost all 1
 
 def calculate_h(position, goal):
     h = abs(goal[0] - position[0]) * abs(goal[1] - position[1])

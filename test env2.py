@@ -93,8 +93,8 @@ print(res)
 print("Explored Nodes: " + str(Node.nodeCount) + "\n")
 Node.nodeCount = 0
 
-print('=== Running A* ===')
-res = search.A_star(p)
-print(res)
-print("Explored Nodes: " + str(Node.nodeCount) + "\n")
-Node.nodeCount = 0
+#print('=== Running A* ===')
+#res = search.A_star(p)
+#print(res)
+#print("Explored Nodes: " + str(Node.nodeCount) + "\n")
+#Node.nodeCount = 0
