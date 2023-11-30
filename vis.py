@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def visual(search):
+def visual(search, route):
     # Load data
     file = './data.xlsx'
-    data = pd.read_excel(file)
+    data = pd.read_excel(file)+
 
     # Store data
     city = list(data['city'])
@@ -24,7 +24,7 @@ def visual(search):
     plt.grid(True, which='both', lw=2)
 
     # Plotting
-    plt.scatter(long, lat)
+    plt.scatter(long, lat, lw=10)
     # fig, mapping = plt.subplots()
     # mapping.scatter(long, lat)
     for i, (c, st) in enumerate(zip(city, state)):
@@ -48,4 +48,21 @@ def visual(search):
 
             # draw line from long1 lat1 to long2 lat2
             plt.plot(list([long1, long2]), list([lat1, lat2]), lw=4, color='r')
+
+    # now plot path
+    coordinatesPath = list()
+    for value in route:
+        pathcity, pathstate = value.split(', ')
+        coordinatesPath.append(lookuptable[pathcity, pathstate])
+    i = 0
+    while i < len(coordinatesPath)-1:
+        longlat1 = coordinatesPath[i]
+        long1 = longlat1[0]
+        lat1 = longlat1[1]
+        longlat2 = coordinatesPath[i + 1]
+        long2 = longlat2[0]
+        lat2 = longlat2[1]
+        plt.plot(list([long1, long2]), list([lat1, lat2]), linestyle='dotted', lw=8, color='yellow')
+        i += 1
+
     plt.show()
