@@ -249,3 +249,16 @@ class Problem:
     # test if current state is goal state or not
     def goalTest(self, s):
         return s.goalpos == s.position
+
+
+def solution(node):
+    # Returns actionList, cost of the solution generated from the node
+
+    actions = []
+    cost = node.cost
+
+    while node.parent is not None:
+        actions.insert(0,node.action)
+        node = node.parent
+
+    return actions, cost
