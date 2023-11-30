@@ -1,6 +1,5 @@
 import pandas as pd
 import networkx as nx
-import matplotlib as mp
 
 # Load dataset
 file = './data.xlsx'
@@ -17,8 +16,7 @@ def generate(datafile, graph):
         # Parse lists
         connected_cities = row['connected cities'].split(',')
         connected_states = row['connected cities states'].split(',')
-        distances = str(row['distance to city']).split(',')
-        # distances = [int(dist) for dist in row['distance to city'].split(',')]
+        distances = [int(dist) for dist in row['distance to city'].split(',')]
 
         # Add the current city if not already in graph or update with lat, long, & interstates
         graph.add_node(node_name, lat=row['lat'], long=row['long'], interstates=row['interstates'])
@@ -29,7 +27,7 @@ def generate(datafile, graph):
             if connected_city_state not in graph:
                 graph.add_node(connected_city_state)
             # Distance is cost
-            graph.add_edge(node_name, connected_city_state, distance=int(distances[i]))
+            graph.add_edge(node_name, connected_city_state, distance=distances[i])
 
 
 generate(data, G)
