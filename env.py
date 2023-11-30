@@ -17,7 +17,7 @@ def generate(datafile, graph):
         # Parse lists
         connected_cities = row['connected cities'].split(',')
         connected_states = row['connected cities states'].split(',')
-        distances = row['distance to city'].split(',')
+        distances = str(row['distance to city']).split(',')
         # distances = [int(dist) for dist in row['distance to city'].split(',')]
 
         # Add the current city if not already in graph or update with lat, long, & interstates
