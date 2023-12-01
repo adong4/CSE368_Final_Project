@@ -65,6 +65,41 @@ class Searches:
                     if child not in toExplore and child.state not in explored:
                         toExplore.appendleft(child)
 
+    import time
+
+    def dijkstra(self, problem):
+        starttime = time.time()
+        queue = []
+        visited = []
+        dist = {}
+        start = Node(None, None, 0, problem.initialState, 0)
+        dist[problem.initialState.toTuple()] = [0, start]
+        queue.append(start)
+        while queue:
+            parent = queue.pop(0)
+            depth = parent.depth
+            if problem.goalTest(parent.state):
+                print("Dijkstra ran for: " + str(time.time() - starttime) + " seconds")
+                path = collections.deque()
+                pathNode = parent
+                while pathNode != None:
+                    path.appendleft(pathNode)
+                    pathNode = pathNode.parent
+                # path.reverse()
+                # print(path)
+                visualize(path)
+                return parent
+            visited.append(parent.state)
+            for action in problem.applicable(parent.state):
+                child = childNode(parent, action, problem, depth)
+                if child.state not in visited and child not in queue:
+                    queue.append(child)
+                    if child.state.toTuple() in dist:
+                        if dist[child.state.toTuple()][0] > dist[parent.state.toTuple()][0] + child.cost:
+                            dist[child.state.toTuple()] = [dist[parent.state.toTuple()][0] + child.cost, child]
+                    else:
+                        dist[child.state.toTuple()] = [dist[parent.state.toTuple()][0] + child.cost, child]
+
     def A_star(self, problem):
         # write your code here
         stime = time.time()
@@ -108,12 +143,6 @@ search = Searches()
 p = Problem()
 s = State()
 
-# p.apply('R', s)
-# p.apply('R', s)
-# p.apply('D', s)
-# p.apply('D', s)
-# p.apply('L', s)
-
 p.initialState = State(s)
 print(s.position, " ", s.goalpos)
 print(s.board)
@@ -124,8 +153,14 @@ print(res)
 print("Explored Nodes: " + str(Node.nodeCount) + "\n")
 Node.nodeCount = 0
 
-print('=== Runnning DFS ===')
+print('=== Running DFS ===')
 res = search.DFS(p)
+print(res)
+print("Explored Nodes: " + str(Node.nodeCount) + "\n")
+Node.nodeCount = 0
+
+print('=== Running Dijkstra ===')
+res = search.dijkstra(p)
 print(res)
 print("Explored Nodes: " + str(Node.nodeCount) + "\n")
 Node.nodeCount = 0
