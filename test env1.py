@@ -40,7 +40,7 @@ def bfs(start_city, end_city):
                 previous_cities.append([connected_cities[1], current_city])  # to help backtrack later on
 
 
-def A_star(start_city, end_city):
+def greedy(start_city, end_city):
     priority_queue = PriorityQueue()
     visited = set()
     route = []
@@ -119,10 +119,10 @@ pathBFS, countBFS = bfs(RandCity1, RandCity2)
 visual('BFS', pathBFS)
 print("Node Count for BFS: ", countBFS)
 
-# A^star
-pathAstar, distanceAstar, countAstar = A_star(RandCity1, RandCity2)
-visual('A_star', pathAstar)
-print("Node Count for A*: ", countAstar, " || Distance: ", distanceAstar, " meters")
+# Greedy
+pathGreedy, distanceGreedy, countGreedy = greedy(RandCity1, RandCity2)
+visual('Greedy', pathGreedy)
+print("Node Count for Greedy: ", countGreedy, " || Distance: ", distanceGreedy, " meters")
 
 # bfs('Anniston, AL', 'Auburn-Opelika, AL')
 # path, count = bfs('Santa Clarita, CA', 'Charleston, WV')
