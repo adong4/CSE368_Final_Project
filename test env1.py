@@ -15,13 +15,18 @@ def bfs(start_city, end_city):
 
     queue.append(start_city)
 
+    start_time = time.time()
+    
     while queue:
         current_city = queue.pop(0)
         visited.append(current_city)
         counter += 1
 
         if current_city == end_city:
+            end_time = time.time() - start_time
+            print("Time it took: ", end_time)
             route.append(end_city)
+            
             # route creating
             city = end_city
             for i in range(counter):  # amount of times loopings needed to be done (not too sure if needed)
@@ -48,6 +53,8 @@ def A_star(start_city, end_city):
     counter = 0
     start_node_tuple = (0, start_city)
 
+    start_time = time.time()
+    
     list_of_connected_cities_and_distance = []
     for edge in G.edges.data():
         list_of_connected_cities_and_distance.append(list([edge[0], edge[1], int(edge[2]['distance'])]))
@@ -60,6 +67,8 @@ def A_star(start_city, end_city):
         distance, parent_city = tup[0], tup[1]
         visited.add(parent_city)
         if parent_city == end_city:
+            end_time = time.time() - start_time
+            print("Time it took: ", end_time)
             route.append(end_city)
 
             # route creating
