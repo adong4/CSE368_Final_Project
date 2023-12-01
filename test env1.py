@@ -1,5 +1,6 @@
 import pandas as pd
 import networkx as nx
+import random
 from queue import PriorityQueue
 from env1 import generate
 from vis import visual
@@ -88,11 +89,42 @@ def A_star(start_city, end_city):
                 previous_cities.append((parent_city, newcity))
 
 
+def random_two_cities(twocities):
+    random_cities = random.choice(twocities)
+    random_first_city = random_cities
+    random_cities = random.choice(twocities)
+    random_second_city = random_cities
+    while random_first_city == random_second_city:
+        random_cities = random.choice(twocities)
+        random_second_city = random_cities
+    random_first_city = str(random_first_city[0]) + ', ' + str(random_first_city[1])
+    random_second_city = str(random_second_city[0]) + ', ' + str(random_second_city[1])
+    return random_first_city, random_second_city
+
+
 file = './data.xlsx'
 data = pd.read_excel(file)
 G = nx.Graph()
 generate(data, G)
-bfs('Anniston, AL', 'Auburn-Opelika, AL')
-path, count = bfs('Santa Clarita, CA', 'Charleston, WV')
-path, distance, count = A_star('Santa Clarita, CA', 'Charleston, WV')
-visual('A_star', path)
+
+randCity = list(data['city'])
+randState = list(data['state'])
+randCityState = [rtn for rtn in zip(randCity, randState)]
+RandCity1, RandCity2 = random_two_cities(randCityState)
+print(RandCity1, RandCity2)
+
+
+# BFS
+pathBFS, countBFS = bfs(RandCity1, RandCity2)
+visual('BFS', pathBFS)
+print("Node Count for BFS: ", countBFS)
+
+# A^star
+pathAstar, distanceAstar, countAstar = A_star(RandCity1, RandCity2)
+visual('A_star', pathAstar)
+print("Node Count for A*: ", countAstar, " || Distance: ", distanceAstar, " meters")
+
+# bfs('Anniston, AL', 'Auburn-Opelika, AL')
+# path, count = bfs('Santa Clarita, CA', 'Charleston, WV')
+# path, distance, count = A_star('Santa Clarita, CA', 'Charleston, WV')
+# visual('A_star', path)

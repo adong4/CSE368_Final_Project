@@ -5,7 +5,7 @@ import pandas as pd
 def visual(search, route):
     # Load data
     file = './data.xlsx'
-    data = pd.read_excel(file)+
+    data = pd.read_excel(file)
 
     # Store data
     city = list(data['city'])
