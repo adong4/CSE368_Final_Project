@@ -1,6 +1,7 @@
 import pandas as pd
 import networkx as nx
 import random
+import time
 from queue import PriorityQueue
 from env1 import generate
 from vis import visual
