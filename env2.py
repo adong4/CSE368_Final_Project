@@ -165,8 +165,8 @@ class Node:
 
 # creates and returns a new node which would be child of current node n being passed to the function
 def childNode(n, action, problem, d):
-    return Node(n, action, n.cost + 1, problem.apply(action, State(n.state)), d)
-
+    return Node(n, action, 1, problem.apply(action, State(n.state)), d)
+# made modification to the cost because we are keeping the cost all 1
 
 def calculate_h(position, goal):
     h = abs(goal[0] - position[0]) * abs(goal[1] - position[1])

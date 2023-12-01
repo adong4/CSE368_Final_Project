@@ -1,0 +1,62 @@
+import time
+
+def dijkstra(problem):
+    starttime = time.time()
+    counter = 0
+    queue = []
+    visited = []
+    dist = {}
+    start = Node(None, None, 0, problem.initialState, 0)
+    dist[problem.initialState.toTuple()] = [0,start]
+    queue.append(start)
+    while queue:
+        counter +=1
+        parent = queue.pop(0)
+        depth = parent.depth
+        if problem.goalTest(parent.state):
+            print(str(counter) + '\n')
+            print(parent.state)
+            """dpath = []
+            dnode = parent
+            while dnode.parent != None:
+                dpath.append(dnode.action)
+                found = False
+                for action in problem.applicable(dnode.state):
+                    print('yes')
+                    child = childNode(parent, action, problem, depth)
+                    if child.state.toTuple() in dist:
+                        print('yes2')
+                        if dist[child.state.toTuple()][0] == dist[dnode.state.toTuple()][0] - 1:
+                            dnode = dist[child.state.toTuple()][1]
+                            found = True
+                            print('yes3')
+                            break
+                if not found:
+                    break
+            dpath.reverse()
+            print('test: ',dpath) """
+            path = []
+            node = parent
+            while node.parent != None:
+                path.append(node.action)
+                node = node.parent
+            path.reverse()
+            print(path)
+            endtime = time.time() - starttime
+            return counter, path, endtime
+        visited.append(parent.state)
+        for action in problem.applicable(parent.state):
+            child = childNode(parent, action, problem, depth)
+            if child.state not in visited and child not in queue:
+                queue.append(child)
+                if child.state.toTuple() in dist:
+                    if dist[child.state.toTuple()][0] > dist[parent.state.toTuple()][0] + child.cost:
+                        dist[child.state.toTuple()] = [dist[parent.state.toTuple()][0] + child.cost, child]
+                else:
+                    dist[child.state.toTuple()] = [dist[parent.state.toTuple()][0] + child.cost, child]
+
+
+test = State()
+problem = Problem()
+problem.initialState = State(test)
+dijkstra(problem)
